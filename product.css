@@ -1,0 +1,14 @@
+form{
+    margin-top: 3rem;
+}
+p{
+    font-weight: bold;
+}
+form p:last-of-type{
+    display: flex;
+    font-style: italic;
+    justify-content: center;
+}
+textarea{
+    padding: 10px;
+}

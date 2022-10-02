@@ -1,0 +1,16 @@
+#question{
+    margin: 40vh 0;
+    padding: 10px;
+}
+#submit-button{
+    display: flex;
+    margin: auto;
+
+    width: fit-content;
+    height: fit-content;
+}
+input[type=text]{
+    padding: 2.2px;
+    border: solid 0.1px gray;
+    border-radius: 5px;
+}

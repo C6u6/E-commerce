@@ -1,0 +1,18 @@
+{% extends "layouts/layout_sidebar.html" %}
+
+{% block title %}
+    Tecnologies
+{% endblock %}
+
+{% block main %}
+    <!-- Display every element -->
+    {% for i in results %}
+        <!-- Photo on the left and title and important things on right-->
+        <div>
+            <img src="{{ results[i][1] }}" alt="Product image"> <!-- Url for photo-->
+            <h3>{{ results[i][2] }}</h3> <!-- Title -->
+            <p>{{ results[i][6] }}</p> <!-- Description -->
+        </div>
+    {% endfor %}
+    
+{% endblock %}

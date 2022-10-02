@@ -1,0 +1,48 @@
+{% extends "layouts/layout_sidebar.html" %}
+
+{% block title %}
+    Register your product
+{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="../static/product.css">
+{% endblock %}
+
+{% block main %}
+    <form action="/product" method="post">
+        <p>
+            Be aware to give the best descript as possible. Choose relevant information about the product, and be sure
+            to make a pretty-looking description text.
+        </p>
+        <p>
+            Write in bold the specific aspect about the product, then colon, then the information.
+        </p>
+        <!-- A lot of individual inputs -->
+        <!-- Tell the seller to write the crucial fact in bold : description of the bold fact -->
+        <!-- Product Title -->
+        <p id="little-warn"><small>This is the most important part of registering a product</small></p>
+        <!-- Description -->
+        <div class="form-group">
+            <textarea id="description" name="description"
+             placeholder="Example
+             
+             Model: this is model X01
+             Origin: This comes from Africa
+             Usage/State: New
+             Size: 6.0 inches
+             Weight: 200 grams
+             "
+             cols="106" rows="12"></textarea>
+        </div>
+        <!-- Put the photos | The photos let the seller know some characteristics, like color, and style-->
+        <div class="form-group">
+            <input type="file" name="img" id="img"
+            accept=".jpg, .jpeg, .pjpeg, .pjp, .png">
+        </div>
+        <div class="form-group">
+            <label for="product-title">Product Title(Name)</label>
+            <input id="product-title" name="title" placeholder="Ex: A XIX 'brand name' pencil"
+             type="text">
+        </div>
+    </form>
+{% endblock %}

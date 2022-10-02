@@ -1,0 +1,41 @@
+{% extends "layouts/layout_sidebar.html" %}
+
+{% block title %}
+    Account
+{% endblock %}
+
+{% block main %}
+    <!-- All information about the user -->
+    <h2 id="user-title">Personal information</h2>
+    
+    <form action="/user" method="post">
+        <p><small>Change what you want by writing the new info in the sections below</small></p>
+        <div class="user-information form-group"></div>
+            <label for="name">Name</label>
+            <input class="form-control" id="name" placeholder="{{ result[0][1] }}" name="name" type="text">
+            <label for="surname">Surname</label>
+            <input class="form-control" id="surname" placeholder="{{ result[0][2] }}" name="surname" type="text">
+            <label for="username">Username</label>
+            <input class="form-control" id="username" placeholder="{{ result[0][3] }} (Can not change)" name="username" type="text">
+            <label for="email">Email</label>
+            <input class="form-control" id="email" placeholder="{{ result[0][4] }}" name="email" type="email">
+            <label for="password">New password</label>
+            <input class="form-control" id="newpassword" placeholder="New password" name="newpassword" type="password">
+        </div>
+        <div class="form-group">
+            <p><small>Put here your current password in order to update any info</small></p>
+            <label for="password">Current password</label>
+            <input class="form-control" id="password" placeholder="Current password" name="password" type="password">
+        </div>
+        <label for="control-submit">Change my data</label>
+        <input id="control-submit" name="check" type="checkbox" value="change">
+        <p>
+            <button class="btn btn-primary" id="change-data-submit" disabled type="submit">Change</button>
+        </p>
+    </form>
+    
+{% endblock %}
+
+{% block javascript %}
+    <script src="../static/user.js"></script>
+{% endblock %}
