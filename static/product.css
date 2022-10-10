@@ -1,0 +1,56 @@
+form{
+    margin-top: 3rem;
+}
+p{
+    font-weight: bold;
+}
+.little-warn, #product-title, #label-select, #title-div, #images, #submit-div{
+    display: flex;
+    justify-content: center;
+}
+#title-div{
+    flex-direction: column;
+    align-items: center;
+}
+.little-warn, #title-div{
+    font-style: italic;
+}
+#product-title{
+    width: 78vw;
+    padding: 5px 6px;
+    align-self: baseline;
+}
+textarea{
+    padding: 10px;
+}
+.inp-img{
+    display: none;
+}
+#label-select{
+    padding: 1.5rem ;
+    font-weight: bold;
+    border: solid rgba(41, 29, 29, 0.671) 1px;
+    cursor: pointer;
+}
+#images{
+    justify-content: space-between;
+}
+.thumb{
+    border: solid rgba(41, 29, 29, 0.671) 0.2px;
+    width: 80xp;
+    height: 50xp;
+}
+#price{
+    padding: 6px;
+    width: 79vw;
+    text-align: center;
+}
+form div button[type=submit]{
+    padding: 6px;
+    border: none;
+    border-radius: 50%;
+    text-decoration: none;
+    color: white;
+    background-color: black;
+    font-weight: 700;
+}

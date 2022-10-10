@@ -1,7 +1,7 @@
-from flask import redirect, render_template, request, session, g
+from flask import redirect, render_template, request, session
 from functools import wraps
 
-import sqlite3
+import sqlite3, os
 
 # Read and create a database based on a pure SQL file
 def Database(path):
@@ -38,6 +38,31 @@ def manipulatingData(query, array, response=False):
             return res
         # If response is not necessary, it means that problaby the database was changed     
         con.commit()
+
+# Convert an image file to binary
+def convert_and_allocate(binary_data, binary_id):
+    path = "static/images"
+
+    # Check if this file was already updated
+    checked = manipulatingData("SELECT uploaded FROM product WHERE prod_id = ?", [binary_id], True)
+    if checked[0][0] == "YES":
+        # Find the photo that is binaricly the same as the banary passed in
+        for file in os.listdir(path):
+            if os.path.join(path, file) == binary_data:
+                return os.path.join(path, file)
+
+    # Create the filename
+    filename = None
+    if os.listdir(path) == []:
+        filename = "000.png"
+    else:
+        filename = str(len(os.listdir(path))) + '.png'
+
+    filepath = os.path.join(path, filename)
+    with open(filepath, 'wb') as f:
+        f.write(binary_data)
+
+    return filepath
 
 # Pages with this function can only be accessed if there is a user loged in
 def login_required(f):

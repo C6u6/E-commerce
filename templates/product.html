@@ -1,0 +1,88 @@
+{% extends "layouts/layout_sidebar.html" %}
+
+{% block title %}
+    Register your product
+{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="../static/product.css">
+{% endblock %}
+
+{% block main %}
+    <form action="/products" enctype='multipart/form-data' method="post">
+        <h2>Title</h2>
+        <p>
+            A title is one of the first things a person sees in an ad, it is what determine if a person will click or not in the annoucement, so it must be compelling. 
+        </p>
+        <div class="form-group" id="title-div">
+            <label for="product-title">Product Title</label>
+            <input id="product-title" name="title" placeholder="Ex: A comfortable nineteenth century chair made of steal and silver."
+             required type="text">
+        </div>
+        <h2>Description</h2>
+        <p>
+            Be aware to give the best descript as possible. Choose relevant information about the product, and be sure
+            to make a pretty-looking description text.
+        </p>
+        <p>
+            Write in bold the specific aspect about the product, then colon, then the information.
+        </p>
+        <!-- A lot of individual inputs -->
+        <!-- Tell the seller to write the crucial fact in bold : description of the bold fact -->
+        <!-- Product Title -->
+        <p class="little-warn"><small>This is the most important part of registering a product</small></p>
+        <!-- Description -->
+        <div class="form-group">
+            <textarea id="description" name="description"
+             placeholder="Example
+             
+             Model: Camel X01 
+             Origin: Africa
+             Usage/State: New
+             Size: 6.0 inches
+             Weight: 200 grams
+             Colors: Lime (You can specify colors via the uploaded phptos)
+             "
+             cols="106" rows="12"></textarea>
+        </div>
+        <h2>Images</h2>
+        <p>Insert images to ilustrate your product.</p>
+        <p class="little-warn"><small>Images showing products with different colors can </small></p>
+        <!-- Put the photos | The photos let the seller know some characteristics, like color, and style-->
+        <div class="form-group">
+            <label for="img" id="label-select">
+                Select image
+                <input type="file" name="img" required multiple class="inp-img" id="inp-img"
+                accept=".jpg, .jpeg, .png">
+            </label>
+            <div class="galery" id="galery"> <!-- Empty div to display the loaded images -->
+            </div>
+        </div>
+        <h2>Colors</h2>
+        <p>Are the colors relevant? Add photos that will represent each color below</p>
+        <p class="little-warn"><small>This is not possible yet</small></p>
+        <h2>Category</h2>
+        <p>What is your product? Is something related to tecnology, as cellphones or computers? Is it clothes, as blouses or shirts?</p>
+        <div>
+            <label for="category">Category</label>
+            <select id="category" name="category">
+                <option value="food" selected>Food</option>
+                <option value="tecnology">Tecnology</option>
+                <option value="clothes">Clothes</option>
+                <option value="#">#</option>
+                <option value="#">#</option>
+            </select>
+        </div>
+        <h2>Price</h2>
+        <p>Now it is time to define the cost.</p>
+        <p class="little-warn"><small>Define a price</small></p>
+        <div>
+            <input type="number" name="price" id="price" required min="0" placeholder="0.00">
+        </div>
+        <div id="submit-div"><button type="submit">Announce this product</button></div>
+    </form>
+{% endblock %}
+
+{% block javascript %}
+    <script src="../static/product.js"></script>
+{% endblock %}

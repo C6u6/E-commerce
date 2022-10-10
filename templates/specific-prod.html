@@ -1,0 +1,17 @@
+{% extends "/layouts/layout_sidebar.html" %}
+<!-- This is inteded to show with more details oly one product-->
+{% block title %}
+    {{data[0]}}
+{% endblock %}
+
+{% block main %}
+    <div class="specific-ad">
+        <!-- Image -->
+        <img src="{{data[1]}}" alt="Image of the product">
+        <div>
+            <p>{{data[2]}}</p> <!-- Description -->
+            <label for="but-price">Buy:</label>
+            <button id="but-price">{{data[3]}}</button> <!-- Price -->
+        </div>
+    </div>
+{% endblock %}

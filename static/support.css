@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Header  */
+header nav div, nav, nav form{
+    display: flex;
+}
+
+nav{
+    gap: 10vw;
+}
+
+nav > a{
+    padding-left: 2.5rem;
+}
+
+.ul-left{
+    margin-right: 10px;
+}
+
+/* Main */
+
+/* index main > */
+main, .ports{
+    display: flex;
+
+    align-items: center;
+}
+main{
+    flex-direction: column;
+
+    align-items: center;
+}
+
+main div{
+    margin: 8vh 0;
+}
+
+.ports{
+    gap: 8vw;
+}
+
+main div button{
+    width: 200px;
+    height: 60px;
+}
+.my-button{
+    border-radius: 50px;
+}
+a{
+    font-size: 20px;
+    font-weight: 400;
+
+    text-decoration: none;
+
+    color: white;
+}
+
+/* < index main */
+
+
+/* register main > */
+.form-group{
+    margin: 3.25vh 0;
+}
+
+.form-check{
+    margin-bottom: 3.75vh;
+}
+
+#exampleInputPassword1{
+    margin: 2.75px 0;
+}
+
+#policy{
+    color: rgb(10, 64, 214);
+    font-size: 16px;
+}
+/* < register main */
+
+/* Policy */
+#unavailable{
+    margin-top: 30vh;
+
+    font-size: 28px;
+}
+
+/* User > */
+.user-information{
+    display: flex;
+    flex-direction: column;
+}
+
+#user-title{
+    margin-top: 5px;
+}
+
+
+
+/* < user */

@@ -1,13 +1,13 @@
-from flask import Flask, flash, redirect, render_template, request, session, g
+from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
-from datetime import date
-from time import sleep 
+from werkzeug.utils import secure_filename 
 from functools import wraps
 from altentication import validusername, validnames, validpassword, validemail
-from helpers import login_required, Database, manipulatingData
+from helpers import login_required, Database, manipulatingData, convert_and_allocate
+from PIL import Image
 
-import sqlite3, string
+import sqlite3, string, os, jinja2
 
 # Configure the app
 app = Flask(__name__)
@@ -22,6 +22,8 @@ Session(app)
 
 """ I am remainding you that you need to do all the control data here in the backend """
 
+# Make manipulatingData() a global function
+app.jinja_env.globals.update(manipulatingData=manipulatingData)
 # Stablishing a database
 path = "database/database.sql"
 Database(path)
@@ -30,19 +32,16 @@ Database(path)
 def index():
     return render_template("index.html")
 
-
 @app.route("/about")
 def about():
     return render_template("about.html")
     
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """ Log user in """
 
     # Forget any user_id
     session.clear()
-
     error = None
 
     if request.method == "POST":
@@ -84,7 +83,6 @@ def login():
         return redirect("/")
 
     return render_template("login.html", error=error)
-
 
 @app.route("/logout")
 def logout():
@@ -143,32 +141,37 @@ def register():
             error = e
 
     return render_template("register.html", error=error)
-
-        
+   
 @app.route("/policy")
 def policy():
     return render_template("policy.html")
 
 @app.route("/tecnologies", methods=["GET","POST"])
+@login_required
 def tec():
-    """ Automatically search for and display properly any product that belongs to the tec category"""
+    # Search in product all products that has category = tecnology
+    results = manipulatingData("SELECT * FROM product WHERE category = ?", ['tecnology'], True)
 
-    if request.method == 'GET':
+    # Read the binary data file
+    img = [] # Save all the paths to the photos
+    for i in range(len(results)):
+        if convert_and_allocate(results[i][1], results[i][0]):
 
-        # All products that belongs to the tecnology categogy
-        with sqlite3.connect("commerce.db") as con:
-            cur = con.cursor()
-            cur.execute("SELECT * FROM product WHERE category = 'tecnology'")
-            res = fetchall()
+            img.append(convert_and_allocate(results[i][1], results[i][0]))
 
-            if results == []:
-                flash("Some unknown error")
-                return redirect("/")
+    if request.method == "POST":
+        data = [request.form.get('title'), request.form.get('image'), request.form.get('description'), request.form.get('price')]
 
-            # Final result
-            results = res[0]
+        return render_template("specific-prod.html", data = data)
+ 
+    if results is None:
+        flash("results == None")
+        return render_template("tecnologies.html")
 
-        return render_template("tecnologies.html",results=results)
+    # Mark that the binary was converted to png
+    manipulatingData("UPDATE product SET uploaded = ?", ['YES'])
+
+    return render_template("tecnologies.html",results=results, img=img, len_height=len(results))
 
 # This will dispay the user information   
 @app.route("/user", methods=["GET", "POST"])
@@ -205,23 +208,23 @@ def user():
         id = session['user_id']
         try:
                 # Checking the old password
-                res = manipulatingData("SELECT pass_hash FROM users WHERE id = ?", [id], True)
-                if password != None:
-                    if not check_password_hash(res[0][0], password):
-                        flash("You didn't provide your current password correctly")
-                        return redirect("/user")
+            res = manipulatingData("SELECT pass_hash FROM users WHERE id = ?", [id], True)
+            if password != None:
+                if not check_password_hash(res[0][0], password):
+                    flash("You didn't provide your current password correctly")
+                    return redirect("/user")
 
-                for data in toChange:
-                    if data == name:
-                        manipulatingData("UPDATE users SET name_user = ? WHERE id = ?",[name, id])
-                    if data == surname:
-                        manipulatingData("UPDATE users SET surname = ? WHERE id = ?",[surname, id])
-                    if data == email:
-                        manipulatingData("UPDATE users SET email = ? WHERE id = ?",[email, id])
-                    if data == password:
-                        manipulatingData("UPDATE users SET pass_hash = ? WHERE id = ?",[generate_password_hash(newpassword), id])
+            for data in toChange:
+                if data == name:
+                    manipulatingData("UPDATE users SET name_user = ? WHERE id = ?",[name, id])
+                if data == surname:
+                    manipulatingData("UPDATE users SET surname = ? WHERE id = ?",[surname, id])
+                if data == email:
+                    manipulatingData("UPDATE users SET email = ? WHERE id = ?",[email, id])
+                if data == password:
+                    manipulatingData("UPDATE users SET pass_hash = ? WHERE id = ?",[generate_password_hash(newpassword), id])
 
-                flash("Data updateded successfully")
+            flash("Data updateded successfully")
         except Exception as e:
             flash(e)
             
@@ -231,8 +234,7 @@ def user():
 @app.route("/account")
 @login_required
 def account():
-    return render_template("warningdemo.hml")
-
+    return render_template("warningdemo.html")
 
 @app.route("/services", methods=["GET","POST"])
 @login_required
@@ -258,7 +260,6 @@ def service():
 
     return render_template("services.html")
 
-
 @app.route("/products", methods=["GET","POST"])
 @login_required
 def product():
@@ -266,20 +267,38 @@ def product():
         # Getting data
         title = request.form.get("title")
         desc = request.form.get("description")
-        img = request.form.get("img")
+        price = int(request.form.get("price"))
+        category = request.form.get("category")
         # Validating data
-        if not title:
+        if not title or title.isnumeric() == True:
             flash("Must provide a title for the product")
-            return redirect("/product")
-        if not request.form.get("description"):
+            return redirect("/products")
+        if not desc or desc.isnumeric == True:
             flash("Must provide a description for the product")
-            return redirect("/product")
+            return redirect("/products")
+        if not price:
+            flash("Must provide a price")
+            return redirect("/products")
+        if not category or category.isnumeric() == True:
+            flash("Must provide a category")
+            return redirect("/products")
+
+        files = request.files['img'] if "img" in request.files else None
+        img = files.read() if files else None
         if not img:
-            flash("Must provide one(some) photos for the product")
-            return redirect("/product")
+            flash("Could not upload file")
+            redirect("product")
+
+        # Register the product in the table
+        query = "INSERT INTO product (title, img, belong_to, category, quantity, price, about) VALUES (?,?,?,?,?,?,?)"
+        try:
+            manipulatingData(query, [title, img, session["user_id"], category, 1, price, desc])
+            flash("Product anounnced")
+            redirect("/product")
+        except Exception as e:
+            flash(e)
 
     return render_template("product.html")
-
 
 @app.route("/activity")
 @login_required

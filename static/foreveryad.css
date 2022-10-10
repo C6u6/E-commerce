@@ -1,0 +1,22 @@
+#main-layout{
+    align-items: baseline;
+}
+.ad{
+    display: flex;
+    gap: .8rem;
+    margin-left: 4rem;
+}
+img{
+    width: 450px;
+    height: 200px;
+}
+.title-submit{
+    background-color: transparent;
+    border: none;
+
+    width: fit-content;
+    height: fit-content;
+}
+.prod-about{
+    margin: 0;
+}

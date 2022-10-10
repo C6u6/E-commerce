@@ -1,0 +1,23 @@
+{% extends "layouts/layout.html" %}
+
+{% block title %}
+    Log in
+{% endblock %}
+
+{% if error %}
+    <p class=error><strong>Error:</strong> {{ error }}</p>
+{% endif %}
+
+{% block main %}
+    <form action="/login" method="post">
+        <div class="form-group">
+            <label for="exampleInputPassword1">Username or email</label>
+            <input name="username-or-email" type="text" class="form-control" id="exampleInputPassword1" placeholder="Username or email">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary">Enter</button>
+    </form>
+{% endblock %}

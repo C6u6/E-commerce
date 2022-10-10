@@ -1,0 +1,34 @@
+{% extends "layouts/layout_sidebar.html" %}
+
+{% block title %}
+    Tecnologies
+{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="static/foreveryad.css">
+{% endblock %}
+
+{% block main %}
+    <!-- Display every element -->
+    {% for i in range(len_height) %}    
+        <!-- Photo on the left and title and important things on right-->
+        <div class="ad">
+            <img src="{{ img[i] }}" alt="Product image"> <!-- Url for photo-->
+            <div class="prod-about">
+                <h3>
+                    <form action="/tecnologies" method="post">
+                        <button class="title-submit" type="submit">{{ results[i][2] }}</button>
+                        <!-- Input to know which information product will be sent -->
+                        <input checked hidden type="checkbox" name="title" value="{{ results[i][2] }}">
+                        <input checked hidden type="checkbox" name="image" value="{{ img[i] }}">
+                        <input checked hidden type="checkbox" name="description" value="{{ results[i][7] }}">
+                        <input checked hidden type="checkbox" name="price" value="{{ results[i][6] }}">
+                    </form>
+                </h3> <!-- Title -->
+                <hr>
+                <p>Description: {{ results[i][7] }}</p> <!-- Description -->
+                <p>Price: {{ results[i][6] }}</p> <!-- Price -->
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
