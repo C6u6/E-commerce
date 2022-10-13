@@ -1,0 +1,16 @@
+.form-group,.form-check,.register-buttom{
+    margin: 1vh 23vw 1vh 23vw;
+}
+.form-check{
+    margin-bottom: 3.75vh;
+}
+.register-buttom{
+    margin-left: 48vw;
+}
+#exampleInputPassword1{
+    margin: 2.75px 0;
+}
+#policy{
+    color: rgb(10, 64, 214);
+    font-size: 16px;
+}

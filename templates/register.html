@@ -1,4 +1,4 @@
-{% extends "layouts/layout.html" %}
+{% extends "layouts/layout_sidebar.html" %}
 
 {% block title %}
     Register
@@ -8,7 +8,6 @@
     {% if error %}
         <p class="error"><strong>Error:</strong> {{ error }}</p>
     {% endif %}
-    
     <form action="/register" method="post">
         <div class="form-group">
             <label for="username">Name</label>
@@ -33,10 +32,14 @@
             <input type="checkbox" name="checkbox" class="form-check-input" id="Check1" value="agree">
             <label class="form-check-label" for="Check1">I agree to the <a id="policy" href="/policy"><i>Policy</i></a> of the Web Site</label>
         </div>
-        <button type="submit" class="btn btn-primary" disabled id="submit-button">Register</button>
+        <button type="submit" class="btn btn-primary register-buttom" disabled id="submit-button">Register</button>
     </form>
 {% endblock %}
 
 {% block javascript %}
     <script src="../static/register.js"></script>
 {% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="../static/register.css">
+{% endblock%}

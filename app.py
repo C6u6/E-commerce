@@ -2,10 +2,8 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename 
-from functools import wraps
 from altentication import validusername, validnames, validpassword, validemail
 from helpers import login_required, Database, manipulatingData, convert_and_allocate
-from PIL import Image
 
 import sqlite3, string, os, jinja2
 
@@ -28,7 +26,7 @@ app.jinja_env.globals.update(manipulatingData=manipulatingData)
 path = "database/database.sql"
 Database(path)
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
 def index():
     return render_template("index.html")
 

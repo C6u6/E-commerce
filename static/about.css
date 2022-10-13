@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
 }
-
 /* Every element that will have flex */
 header, main, footer, h1, h2, div{
     margin: 1.5rem 0;
@@ -12,6 +11,9 @@ header, main, footer, h1, h2, div{
 
     align-items: center;
 }
+h1{
+    margin: 40vh 0;
+}
 #p, #p1{
     margin-right: 2.1rem;
     margin-left: 2.95rem;
@@ -19,4 +21,7 @@ header, main, footer, h1, h2, div{
 a{
     text-decoration: none;
     color: slategrey;
+}
+#main-topic{
+    color: black;
 }

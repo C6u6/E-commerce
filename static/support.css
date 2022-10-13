@@ -86,17 +86,11 @@ a{
 
     font-size: 28px;
 }
-
 /* User > */
 .user-information{
     display: flex;
     flex-direction: column;
 }
-
 #user-title{
     margin-top: 5px;
 }
-
-
-
-/* < user */

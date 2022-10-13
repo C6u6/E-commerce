@@ -1,16 +1,20 @@
 {% extends "layouts/layout_sidebar.html" %}
 
 {% block title %}
-    Web site name
+    Ecommerce
 {% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="../static/index.css">
+{% endblock%}
 
 {% block main %}
     <!-- Block to invite the user to choose some area -->
-    <div>
+    <div class="main-div">
         <p>Choose one of the following</p>
     </div>
     <!-- Block with some thematic buttons anchoring to other pages -->
-    <div>
+    <div class="main-div">
         <div class="ports">
             <button class="btn btn-dark my-button"><a href="/tecnologies">Tecnologies</a></button>
             <button class="btn btn-dark my-button"><a href="/clothes">Clothes</a></button>

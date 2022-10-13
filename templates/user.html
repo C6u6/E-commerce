@@ -9,7 +9,7 @@
     <h2 id="user-title">Personal information</h2>
     
     <form action="/user" method="post">
-        <p><small>Change what you want by writing the new info in the sections below</small></p>
+        <p class="warn"><small>Change what you want by writing the new info in the sections below</small></p>
         <div class="user-information form-group"></div>
             <label for="name">Name</label>
             <input class="form-control" id="name" placeholder="{{ result[0][1] }}" name="name" type="text">
@@ -23,12 +23,12 @@
             <input class="form-control" id="newpassword" placeholder="New password" name="newpassword" type="password">
         </div>
         <div class="form-group">
-            <p><small>Put here your current password in order to update any info</small></p>
+            <p class="warn"><small>Put here your current password in order to update any info</small></p>
             <label for="password">Current password</label>
             <input class="form-control" id="password" placeholder="Current password" name="password" type="password">
         </div>
-        <label for="control-submit">Change my data</label>
         <input id="control-submit" name="check" type="checkbox" value="change">
+        <label id="special-label" for="control-submit">Change my data</label>
         <p>
             <button class="btn btn-primary" id="change-data-submit" disabled type="submit">Change</button>
         </p>
